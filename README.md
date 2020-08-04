@@ -12,4 +12,4 @@ git clone git@github.com:monkey01127/jquery.qrcode-demo.git
 
 ![示例图片](/pic/demo.jpg)
 
-## 根据输入框中链接变化，显示不同的二维码
+## 3. 根据输入框中链接变化，显示不同的二维码
