@@ -1,0 +1,60 @@
+<!--
+ * @Description:
+ * @Author: lijuan.sun
+ * @Date: 2020-07-21 08:42:45
+ * @LastEditTime: 2020-08-04 10:34:48
+ * @LastEditors: lijuan.sun
+ * @FilePath: \qcode\index.html
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JS生成QRCode带Logo</title>
+</head>
+<body>
+	<div id="qrcodeW"></div>
+	<script type="text/javascript" src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+  <input id="text" type="text" value="https://m.juneyaoair.com/m/index.html#/home" style="width:80%" /><br />
+	<img id="logoImg" src="https://mediaws.juneyaoair.com/web/static/1594882535942/imgs/f269b4eb.junyao_icon.png" style="display:none"/>
+</body>
+</html>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    makeCode();
+    function makeCode () {
+      $('#qrcodeW').html('');
+      var code_url = $("#text").val();
+      var qrWidth = 200;
+      var qrHeight = 200;
+      var logoQrWidth  = qrWidth / 4;
+      var logoQrHeight  = qrHeight / 4;
+      // 生成二维码
+      $('#qrcodeW').qrcode({
+         render : "canvas", // 设置渲染方式，有table和canvas
+         text : code_url, // 扫描二维码后自动跳向该链接
+         width : qrWidth, // 二维码的宽度
+         height : qrHeight // 二维码的高度
+      });
+      // 新增logo图片
+      $("#qrcodeW canvas")[0].getContext('2d').drawImage(
+        $("#logoImg")[0],
+        (qrWidth - logoQrWidth) / 2,
+        (qrHeight - logoQrHeight) / 2,
+        logoQrWidth,
+        logoQrHeight
+      );
+    }
+    $("#text").
+      on("blur", function () {
+        makeCode();
+      }).
+      on("keydown", function (e) {
+        if (e.keyCode == 13) {
+          makeCode();
+        }
+    });
+  })
+</script>
